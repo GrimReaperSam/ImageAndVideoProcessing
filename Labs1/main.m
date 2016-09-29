@@ -134,7 +134,66 @@ imshow(gold_filtered)
 title('Filtered image')
 
 
-%% Correlation
+% %% Correlation
+% gold_text = imread('Images/gold-text.png');
+% g_letter = imread('Images/g-letter.png');
+% %with im2double there is a offset
+% 
+%     %CORRELATION COMPUTE IN THE SPATIAL DOMAIN
+%     
+% corr1=correlation_t(gold_text, g_letter);
+% 
+% figure(21)
+% 
+% surf(corr1);shading flat
+% 
+% [xval yval] = find(corr1==max(max(corr1)));
+% 
+% figure(19)
+% subplot(1,2,1)
+% imshow(gold_text)
+% subplot(1,2,2)
+% imshow(g_letter)
+% 
+% figure(20)
+% imshow(gold_text)
+% hold on
+% plot(yval,xval,'go','MarkerSize',30)
+% 
+% 
+%     %CORRELATION COMPUTE IN THE FREQUENCY DOMAIN
+% corr2=correlation_f(gold_text,g_letter);
+% figure(22)
+% 
+% surf(corr2);shading flat
+% 
+% [xval yval] = find(corr2==max(max(corr2)));
+% figure(24)
+% imshow(gold_text)
+% hold on
+% plot(yval,xval,'go','MarkerSize',30)
+% 
+% 
+% gold_text = imread('Images/gold-text.png');
+% g_letter = imread('Images/g-letter.png');
+% gold_text_noisy = imnoise(gold_text, 'gaussian',0,5);
+% corr_noisy_5 = correlation_f(gold_text_noisy,g_letter);
+% [xval yval] = find(corr_noisy_5==max(max(corr_noisy_5)));
+% figure(25)
+% imshow(gold_text_noisy)
+% hold on
+% plot(yval,xval,'go','MarkerSize',30)
+
+
+gold_text = imread('Images/gold-text.png');
+g_letter = imread('Images/g-letter.png');
+gold_text_noisy = imnoise(gold_text, 'gaussian',0,10);
+corr_noisy_5 = correlation_f(gold_text_noisy,g_letter);
+[xval yval] = find(corr_noisy_5==max(max(corr_noisy_5)));
+figure(26)
+imshow(gold_text_noisy)
+hold on
+plot(yval,xval,'go','MarkerSize',30)
 
 %% Resampling 
 sub = imread('Images/sub4.tif');
@@ -154,52 +213,45 @@ subplot(1,3,3)
 imshow(sub4)
 title('Subsampled by a factor of 4')
 
+
 %% Phase and magnitude of 2DFT
 % lena_y = im2double(imread('Images/lena-y.png'));
 % 
-% lena_y_fft=fftshift(fft2(lena_y));
+% lena_y_fft=(fft2(lena_y));
 % real_lena = real(lena_y_fft);
 % real_lena_invert = ifft2(real_lena);
 % 
 % 
-% imag_lena = imag(lena_y_fft);
-% imag_lena_invert = abs(ifft2(imag_lena));
+% imag_lena = i*imag(lena_y_fft);
+% imag_lena_invert = real(ifft2(imag_lena));
 % 
 % figure(16)
 % subplot(1,2,1)
-% imshow(real_lena_invert)
+% imshow(real(real_lena_invert))
 % subplot(1,2,2)
-% imshow(imag_lena_invert)
-% 
-% phase_lena_y = angle(lena_y_fft);
-% magnitude_lena_y = abs(lena_y_fft);
+% imshow(imag_lena_invert, [])
 % 
 % magnitude_lena = ifft2(abs(lena_y_fft));
-% phase_lena = ifft2(exp(i*angle(lena_y_fft)));
+% % 
+% % phase_lena = ifft2(exp(i*angle(lena_y_fft)));
 % 
+% lena_magn_1 = ifft2(lena_y_fft ./ abs(lena_y_fft));
 % 
 % figure(17)
 % subplot(1,2,1)
-% imshow(magnitude_lena)
+% imshow(real(magnitude_lena))
+% % subplot(1,2,2)
+% % imshow(abs(phase_lena), [])
 % subplot(1,2,2)
-% imshow(phase_lena)
+% imshow(real(lena_magn_1), [])
 
 
 %% Weber law
 
-% L1 = 20;
-% L2 = 100;
+% L1 = 60;
+% L2 = 61;
 % LB = 10;
 % a=weber(L1,L2,LB);
 % figure(18)
-% imagesc(a)
-% colormap('gray')
-% 
-% 
-% for L1=1:256
-%     for L2=1:256
-%         delta = L2 - L1
-%         alpha_value = delta/
-%     end
-% end
+% imshow(a)
 
