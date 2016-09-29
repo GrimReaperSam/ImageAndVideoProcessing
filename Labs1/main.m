@@ -1,4 +1,5 @@
 clc 
+close all
 clear all
 
 
@@ -153,9 +154,10 @@ clear all
 %% Phase and magnitude of 2DFT
 lena_y = im2double(imread('Images/lena-y.png'));
 
-lena_y_fft=fft2(lena_y);
+lena_y_fft=fftshift(fft2(lena_y));
 real_lena = real(lena_y_fft);
 real_lena_invert = ifft2(real_lena);
+
 
 imag_lena = imag(lena_y_fft);
 imag_lena_invert = abs(ifft2(imag_lena));
@@ -165,6 +167,38 @@ subplot(1,2,1)
 imshow(real_lena_invert)
 subplot(1,2,2)
 imshow(imag_lena_invert)
+
+phase_lena_y = angle(lena_y_fft);
+magnitude_lena_y = abs(lena_y_fft);
+
+magnitude_lena = ifft2(abs(lena_y_fft));
+phase_lena = ifft2(exp(i*angle(lena_y_fft)));
+
+
+figure(17)
+subplot(1,2,1)
+imshow(magnitude_lena)
+subplot(1,2,2)
+imshow(phase_lena)
+
+
+%% Weber law
+
+L1 = 20;
+L2 = 100;
+LB = 10;
+a=weber(L1,L2,LB);
+figure(18)
+imagesc(a)
+colormap('gray')
+
+
+for L1=1:256
+    for L2=1:256
+        delta = L2 - L1
+        alpha_value = delta/
+    end
+end
 
 
 
