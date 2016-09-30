@@ -189,7 +189,7 @@ gold_text = imread('Images/gold-text.png');
 g_letter = imread('Images/g-letter.png');
 gold_text_noisy = imnoise(gold_text, 'gaussian',0,10);
 corr_noisy_5 = correlation_f(gold_text_noisy,g_letter);
-[xval yval] = find(corr_noisy_5==max(max(corr_noisy_5)));
+[xval, yval] = find(corr_noisy_5==max(max(corr_noisy_5)));
 figure(26)
 imshow(gold_text_noisy)
 hold on
@@ -215,35 +215,31 @@ title('Subsampled by a factor of 4')
 
 
 %% Phase and magnitude of 2DFT
-% lena_y = im2double(imread('Images/lena-y.png'));
-% 
-% lena_y_fft=(fft2(lena_y));
-% real_lena = real(lena_y_fft);
-% real_lena_invert = ifft2(real_lena);
-% 
-% 
-% imag_lena = i*imag(lena_y_fft);
-% imag_lena_invert = real(ifft2(imag_lena));
-% 
-% figure(16)
-% subplot(1,2,1)
-% imshow(real(real_lena_invert))
-% subplot(1,2,2)
-% imshow(imag_lena_invert, [])
-% 
-% magnitude_lena = ifft2(abs(lena_y_fft));
-% % 
-% % phase_lena = ifft2(exp(i*angle(lena_y_fft)));
-% 
-% lena_magn_1 = ifft2(lena_y_fft ./ abs(lena_y_fft));
-% 
-% figure(17)
-% subplot(1,2,1)
-% imshow(real(magnitude_lena))
-% % subplot(1,2,2)
-% % imshow(abs(phase_lena), [])
-% subplot(1,2,2)
-% imshow(real(lena_magn_1), [])
+lena_y = im2double(imread('Images/lena-y.png'));
+
+lena_y_fft=(fft2(lena_y));
+
+real_lena_invert = ifft2(real(lena_y_fft));
+imag_lena_invert = real(ifft2(i * imag(lena_y_fft)));
+
+figure('Name', 'Real and Imaginary parts of FFT')
+subplot(1,2,1)
+imshow(real(real_lena_invert), [])
+title('Real part')
+subplot(1,2,2)
+imshow(real(imag_lena_invert), [])
+title('Imaginary part')
+
+magnitude_lena = ifft2(abs(lena_y_fft));
+phase_lena = ifft2(lena_y_fft ./ abs(lena_y_fft));
+
+figure('Name', 'Magnitude and phase of FFT')
+subplot(1,2,1)
+imshow(real(magnitude_lena))
+title('Magnitude')
+subplot(1,2,2)
+imshow(real(phase_lena), [])
+title('Phase')
 
 
 %% Weber law
