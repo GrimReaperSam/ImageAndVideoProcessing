@@ -57,10 +57,10 @@ trees_color_modified = rgb_power(trees_color, 0.5);
 subplot(1, 2, 2)
 subimage(trees,trees_color_modified)
 title('Setting gamme to 0.5')
-%%-->  it add contrast in the image, the utility of  the gamma correction is to enhance the contrast of the images
+%%-->  it adds contrast in the image, the utility of  the gamma correction is to enhance the contrast of the image
 
 
-% %%2.1.4
+%%2.1.4
 chessboard_indexed = [ 1 2 ; 2 1];
 chessboard_indexed = repmat(chessboard_indexed, 4,4);
 chess_map = [0,0,1 ; %blue
@@ -96,7 +96,7 @@ for i=1:7
     lena_quant = quantization(lena2, 2^i);
     subplot(3,4,i)
     imshow(lena_quant)
-    title(strcat(['quantstep= ' int2str(2^i)]))
+    title((['quantstep= ' int2str(2^i)]))
 end
 % false contour appears with quant_step = 16
 
@@ -134,66 +134,75 @@ imshow(gold_filtered)
 title('Filtered image')
 
 
-% %% Correlation
-% gold_text = imread('Images/gold-text.png');
-% g_letter = imread('Images/g-letter.png');
-% %with im2double there is a offset
-% 
-%     %CORRELATION COMPUTE IN THE SPATIAL DOMAIN
-%     
-% corr1=correlation_t(gold_text, g_letter);
-% 
-% figure(21)
-% 
-% surf(corr1);shading flat
-% 
-% [xval yval] = find(corr1==max(max(corr1)));
-% 
-% figure(19)
-% subplot(1,2,1)
-% imshow(gold_text)
-% subplot(1,2,2)
-% imshow(g_letter)
-% 
-% figure(20)
-% imshow(gold_text)
-% hold on
-% plot(yval,xval,'go','MarkerSize',30)
-% 
-% 
-%     %CORRELATION COMPUTE IN THE FREQUENCY DOMAIN
-% corr2=correlation_f(gold_text,g_letter);
-% figure(22)
-% 
-% surf(corr2);shading flat
-% 
-% [xval yval] = find(corr2==max(max(corr2)));
-% figure(24)
-% imshow(gold_text)
-% hold on
-% plot(yval,xval,'go','MarkerSize',30)
-% 
-% 
-% gold_text = imread('Images/gold-text.png');
-% g_letter = imread('Images/g-letter.png');
-% gold_text_noisy = imnoise(gold_text, 'gaussian',0,5);
-% corr_noisy_5 = correlation_f(gold_text_noisy,g_letter);
-% [xval yval] = find(corr_noisy_5==max(max(corr_noisy_5)));
-% figure(25)
-% imshow(gold_text_noisy)
-% hold on
-% plot(yval,xval,'go','MarkerSize',30)
+%% Correlation
+gold_text = imread('Images/gold-text.png');
+g_letter = imread('Images/g-letter.png');
+%with im2double there is a offset
 
+%CORRELATION COMPUTE IN THE SPATIAL DOMAIN    
+corr1=correlation_t(gold_text, g_letter);
+[xval yval] = find(corr1==max(max(corr1)));
+figure('Name','Correlation in spatial domain')
+imshow(gold_text)
+hold on
+plot(yval,xval,'go','MarkerSize',30)
+
+
+%CORRELATION COMPUTE IN THE FREQUENCY DOMAIN
+corr2=correlation_f(gold_text,g_letter);
+[xval yval] = find(corr2==max(max(corr2)));
+figure('Name', 'Correlation in frequency domain')
+imshow(gold_text)
+hold on
+plot(yval,xval,'go','MarkerSize',30)
+%THERE IS A SHIFT TO ADD HOW MUCH?
+
+%NOISY IMAGES
 
 gold_text = imread('Images/gold-text.png');
 g_letter = imread('Images/g-letter.png');
-gold_text_noisy = imnoise(gold_text, 'gaussian',0,10);
-corr_noisy_5 = correlation_f(gold_text_noisy,g_letter);
-[xval, yval] = find(corr_noisy_5==max(max(corr_noisy_5)));
-figure(26)
-imshow(gold_text_noisy)
+
+gold_text_noisy_5 = noise_image(gold_text, 5);
+corr_noisy_5 = correlation_t(gold_text_noisy_5,g_letter);
+[xval yval] = find(corr_noisy_5==max(max(corr_noisy_5)));
+figure('Name','gold_text with a 5-std noise')
+imshow(gold_text_noisy_5)
 hold on
 plot(yval,xval,'go','MarkerSize',30)
+
+gold_text_noisy_10 = noise_image(gold_text, 10);
+corr_noisy_10 = correlation_t(gold_text_noisy_10,g_letter);
+[xval yval] = find(corr_noisy_10==max(max(corr_noisy_10)));
+figure('Name','gold_text with a 10-std noise')
+imshow(gold_text_noisy_10)
+hold on
+plot(yval,xval,'go','MarkerSize',30)
+
+gold_text_noisy_25 = noise_image(gold_text, 25);
+corr_noisy_25= correlation_t(gold_text_noisy_25,g_letter);
+[xval yval] = find(corr_noisy_25==max(max(corr_noisy_25)));
+figure('Name','gold_text with a 25-std noise')
+imshow(gold_text_noisy_25)
+hold on
+plot(yval,xval,'go','MarkerSize',30)
+
+gold_text_noisy_40 = noise_image(gold_text, 40);
+corr_noisy_40= correlation_t(gold_text_noisy_40,g_letter);
+[xval yval] = find(corr_noisy_40==max(max(corr_noisy_40)));
+figure('Name','gold_text with a 40-std noise')
+imshow(gold_text_noisy_40)
+hold on
+plot(yval,xval,'go','MarkerSize',30)
+
+gold_text_noisy_50 = noise_image(gold_text, 50);
+corr_noisy_50 = correlation_t(gold_text_noisy_50,g_letter);
+[xval yval] = find(corr_noisy_50==max(max(corr_noisy_50)));
+figure('Name','gold_text with a 50-std noise')
+imshow(gold_text_noisy_50)
+hold on
+plot(yval,xval,'go','MarkerSize',30)
+
+
 
 %% Resampling 
 sub = imread('Images/sub4.tif');
@@ -216,9 +225,7 @@ title('Subsampled by a factor of 4')
 
 %% Phase and magnitude of 2DFT
 lena_y = im2double(imread('Images/lena-y.png'));
-
 lena_y_fft=(fft2(lena_y));
-
 real_lena_invert = ifft2(real(lena_y_fft));
 imag_lena_invert = real(ifft2(i * imag(lena_y_fft)));
 
@@ -244,10 +251,10 @@ title('Phase')
 
 %% Weber law
 
-% L1 = 60;
-% L2 = 61;
-% LB = 10;
-% a=weber(L1,L2,LB);
-% figure(18)
-% imshow(a)
+L1 = 60;
+L2 = 61;
+LB = 10;
+a=uint8(weber(L1,L2,LB));
+figure('Name','Weber experiment')
+imshow(a)
 
