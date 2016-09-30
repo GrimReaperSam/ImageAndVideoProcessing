@@ -1,6 +1,7 @@
 function [ results ] = correlation_f( a,b )
-%UNTITLED6 Summary of this function goes here
-%   Detailed explanation goes here
+%Correlation compute in the frequency domain
+%   Centered the gray scale of the image between [-128 127] and compute the
+%   correlation in the frequency domain 
     a=double(a)-128;
     b=double(b)-128;
     [a_sx a_sy] = size(a);

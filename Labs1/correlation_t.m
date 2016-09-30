@@ -1,6 +1,7 @@
 function [ corr ] = correlation_t( a,b )
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%Correlation in the spatial domain
+%   Centered the gray scale of the image between [-128 127] and compute the
+%   correlation in the spatial domain
     %Nomaliztion
     a=double(a)-128;
     b=double(b)-128;
