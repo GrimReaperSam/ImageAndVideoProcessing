@@ -21,7 +21,7 @@ title('Lena Color Image')
 subplot(1,2,2); 
 imshow(trees,trees_color)
 title('Tree Color Image')
-% 
+
 % %% 2.1.2
 lena = rgb2gray(lena);
 lena_inverted = 255-lena;
@@ -88,17 +88,17 @@ imshow(chessboard_rgb)
 title('Using true color')
 imwrite(chessboard_rgb, 'Images/chessboard_true_color.tif')
 
-%% 2.2 Image quantization
-lena2=imread('Images/lena-y.png');
+% %% 2.2 Image quantization
+lena_y=imread('Images/lena-y.png');
 
 figure('Name', 'Image quantization');
 for i=1:7
-    lena_quant = quantization(lena2, 2^i);
+    lena_quant = quantization(lena_y, 2^i);
     subplot(3,4,i)
     imshow(lena_quant)
     title((['quantstep= ' int2str(2^i)]))
 end
-% false contour appears with quant_step = 16
+%false contour appears with quant_step = 16
 
 %% 2.3 Filtering
 filter1D = [0.0357;0.2411;0.4464;0.2411;0.0357] ;
@@ -228,13 +228,13 @@ lena_y = im2double(imread('Images/lena-y.png'));
 lena_y_fft=(fft2(lena_y));
 real_lena_invert = ifft2(real(lena_y_fft));
 imag_lena_invert = real(ifft2(i * imag(lena_y_fft)));
-
+%assert(sum(sum(lena_y)) = lena_y_fft(1,1), 'property of FFT verified')
 figure('Name', 'Real and Imaginary parts of FFT')
 subplot(1,2,1)
 imshow(real(real_lena_invert), [])
 title('Real part')
 subplot(1,2,2)
-imshow(real(imag_lena_invert), [])
+imshow(imag_lena_invert, [])
 title('Imaginary part')
 
 magnitude_lena = ifft2(abs(lena_y_fft));
@@ -247,6 +247,7 @@ title('Magnitude')
 subplot(1,2,2)
 imshow(real(phase_lena), [])
 title('Phase')
+
 
 
 %% Weber law
