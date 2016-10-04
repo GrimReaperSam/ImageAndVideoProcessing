@@ -157,7 +157,7 @@ corr2=correlation_f(gold_text,g_letter);
 figure('Name', 'Correlation in frequency domain')
 imshow(gold_text)
 hold on
-plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
+plot(yval+shifty/2,xval+shiftx/2,'rs','MarkerSize',50)
 
 %NOISY IMAGES
 
@@ -165,52 +165,17 @@ gold_text = imread('Images/gold-text.png');
 g_letter = imread('Images/g-letter.png');
 
 gold_text_noisy_5 = noise_image(gold_text, 5);
-corr_noisy_5 = correlation_t(gold_text_noisy_5,g_letter);
-[xval yval] = find(corr_noisy_5==max(max(corr_noisy_5)));
-figure('Name','gold_text with a 5-std noise')
-imshow(gold_text_noisy_5)
-hold on
-plot(yval,xval,'go','MarkerSize',30)
-
 gold_text_noisy_10 = noise_image(gold_text, 10);
-corr_noisy_10 = correlation_t(gold_text_noisy_10,g_letter);
-[xval yval] = find(corr_noisy_10==max(max(corr_noisy_10)));
-figure('Name','gold_text with a 10-std noise')
-imshow(gold_text_noisy_10)
-hold on
-plot(yval,xval,'go','MarkerSize',30)
-
 gold_text_noisy_25 = noise_image(gold_text, 25);
-corr_noisy_25= correlation_t(gold_text_noisy_25,g_letter);
-[xval yval] = find(corr_noisy_25==max(max(corr_noisy_25)));
-figure('Name','gold_text with a 25-std noise')
-imshow(gold_text_noisy_25)
-hold on
-plot(yval,xval,'go','MarkerSize',30)
-
 gold_text_noisy_40 = noise_image(gold_text, 40);
-corr_noisy_40= correlation_t(gold_text_noisy_40,g_letter);
-[xval yval] = find(corr_noisy_40==max(max(corr_noisy_40)));
-figure('Name','gold_text with a 40-std noise')
-imshow(gold_text_noisy_40)
-hold on
-plot(yval,xval,'go','MarkerSize',30)
-
 gold_text_noisy_50 = noise_image(gold_text, 50);
-corr_noisy_50 = correlation_t(gold_text_noisy_50,g_letter);
-[xval yval] = find(corr_noisy_50==max(max(corr_noisy_50)));
-figure('Name','gold_text with a 50-std noise')
-imshow(gold_text_noisy_50)
-hold on
-plot(yval,xval,'go','MarkerSize',30)
-
 
 corr_noisy_5 = correlation_f(gold_text_noisy_5,g_letter);
 [xval yval] = find(corr_noisy_5==max(max(corr_noisy_5)));
 figure('Name','gold_text with a 5-std noise (frequency)')
 imshow(gold_text_noisy_5)
 hold on
-plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
+plot(yval+shifty/2,xval+shiftx/2,'rs','MarkerSize',40)
 
 
 corr_noisy_10 = correlation_f(gold_text_noisy_10,g_letter);
@@ -218,7 +183,7 @@ corr_noisy_10 = correlation_f(gold_text_noisy_10,g_letter);
 figure('Name','gold_text with a 10-std noise (frequency)')
 imshow(gold_text_noisy_10)
 hold on
-plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
+plot(yval+shifty/2,xval+shiftx/2,'rs','MarkerSize',40)
 
 
 corr_noisy_25 = correlation_f(gold_text_noisy_25,g_letter);
@@ -226,15 +191,15 @@ corr_noisy_25 = correlation_f(gold_text_noisy_25,g_letter);
 figure('Name','gold_text with a 25-std noise (frequency)')
 imshow(gold_text_noisy_25)
 hold on
-plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
+plot(yval+shifty/2,xval+shiftx/2,'rs','MarkerSize',40)
 
 
 corr_noisy_40 = correlation_f(gold_text_noisy_40,g_letter);
 [xval yval] = find(corr_noisy_40==max(max(corr_noisy_40)));
-figure('Name','gold_text with a 5-std noise (frequency)')
+figure('Name','gold_text with a 40-std noise (frequency)')
 imshow(gold_text_noisy_40)
 hold on
-plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
+plot(yval+shifty/2,xval+shiftx/2,'rs','MarkerSize',40)
 
 
 corr_noisy_50 = correlation_f(gold_text_noisy_50,g_letter);
@@ -242,7 +207,7 @@ corr_noisy_50 = correlation_f(gold_text_noisy_50,g_letter);
 figure('Name','gold_text with a 50-std noise (frequency)')
 imshow(gold_text_noisy_50)
 hold on
-plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
+plot(yval+shifty/2,xval+shiftx/2,'rs','MarkerSize',40)
 %% Resampling 
 sub = imread('Images/sub4.tif');
 sub2 = sampling(sub,2);
