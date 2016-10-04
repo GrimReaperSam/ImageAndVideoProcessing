@@ -89,14 +89,17 @@ title('Using true color')
 imwrite(chessboard_rgb, 'Images/chessboard_true_color.tif')
 
 % %% 2.2 Image quantization
-lena_y=imread('Images/lena-y.png');
+lena_orig=(imread('Images/lena-y.png'));
 
 figure('Name', 'Image quantization');
-for i=1:7
-    lena_quant = quantization(lena_y, 2^i);
-    subplot(3,4,i)
+subplot(2,4,1)
+imshow(lena_orig)
+title('Original image')
+for index=1:7
+    lena_quant = quantization(lena_orig, 2^index);
+    subplot(2,4,index+1)
     imshow(lena_quant)
-    title((['quantstep= ' int2str(2^i)]))
+    title((['quantstep= ' int2str(2^index)]))
 end
 %false contour appears with quant_step = 16
 
@@ -147,15 +150,14 @@ imshow(gold_text)
 hold on
 plot(yval,xval,'go','MarkerSize',30)
 
-
+[shiftx,shifty] = size(g_letter)
 %CORRELATION COMPUTE IN THE FREQUENCY DOMAIN
 corr2=correlation_f(gold_text,g_letter);
-[xval yval] = find(corr2==max(max(corr2)));
+[xval yval] = find(corr2==max(max(corr2))); 
 figure('Name', 'Correlation in frequency domain')
 imshow(gold_text)
 hold on
-plot(yval,xval,'go','MarkerSize',30)
-%THERE IS A SHIFT TO ADD HOW MUCH?
+plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
 
 %NOISY IMAGES
 
@@ -203,7 +205,44 @@ hold on
 plot(yval,xval,'go','MarkerSize',30)
 
 
+corr_noisy_5 = correlation_f(gold_text_noisy_5,g_letter);
+[xval yval] = find(corr_noisy_5==max(max(corr_noisy_5)));
+figure('Name','gold_text with a 5-std noise (frequency)')
+imshow(gold_text_noisy_5)
+hold on
+plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
 
+
+corr_noisy_10 = correlation_f(gold_text_noisy_10,g_letter);
+[xval yval] = find(corr_noisy_10==max(max(corr_noisy_10)));
+figure('Name','gold_text with a 10-std noise (frequency)')
+imshow(gold_text_noisy_10)
+hold on
+plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
+
+
+corr_noisy_25 = correlation_f(gold_text_noisy_25,g_letter);
+[xval yval] = find(corr_noisy_25==max(max(corr_noisy_25)));
+figure('Name','gold_text with a 25-std noise (frequency)')
+imshow(gold_text_noisy_25)
+hold on
+plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
+
+
+corr_noisy_40 = correlation_f(gold_text_noisy_40,g_letter);
+[xval yval] = find(corr_noisy_40==max(max(corr_noisy_40)));
+figure('Name','gold_text with a 5-std noise (frequency)')
+imshow(gold_text_noisy_40)
+hold on
+plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
+
+
+corr_noisy_50 = correlation_f(gold_text_noisy_50,g_letter);
+[xval yval] = find(corr_noisy_50==max(max(corr_noisy_50)));
+figure('Name','gold_text with a 50-std noise (frequency)')
+imshow(gold_text_noisy_50)
+hold on
+plot(yval+shifty/2,xval+shiftx/2,'go','MarkerSize',30)
 %% Resampling 
 sub = imread('Images/sub4.tif');
 sub2 = sampling(sub,2);
@@ -227,7 +266,7 @@ title('Subsampled by a factor of 4')
 lena_y = im2double(imread('Images/lena-y.png'));
 lena_y_fft=(fft2(lena_y));
 real_lena_invert = ifft2(real(lena_y_fft));
-imag_lena_invert = real(ifft2(i * imag(lena_y_fft)));
+imag_lena_invert = real(ifft2(j * imag(lena_y_fft)));
 %assert(sum(sum(lena_y)) = lena_y_fft(1,1), 'property of FFT verified')
 figure('Name', 'Real and Imaginary parts of FFT')
 subplot(1,2,1)
