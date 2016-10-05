@@ -150,7 +150,8 @@ imshow(gold_text)
 hold on
 plot(yval,xval,'go','MarkerSize',30)
 
-[shiftx,shifty] = size(g_letter)
+
+[shiftx,shifty] = size(g_letter);
 %CORRELATION COMPUTE IN THE FREQUENCY DOMAIN
 corr2=correlation_f(gold_text,g_letter);
 [xval yval] = find(corr2==max(max(corr2))); 
@@ -160,10 +161,6 @@ hold on
 plot(yval+shifty/2,xval+shiftx/2,'rs','MarkerSize',50)
 
 %NOISY IMAGES
-
-gold_text = imread('Images/gold-text.png');
-g_letter = imread('Images/g-letter.png');
-
 gold_text_noisy_5 = noise_image(gold_text, 5);
 gold_text_noisy_10 = noise_image(gold_text, 10);
 gold_text_noisy_25 = noise_image(gold_text, 25);
