@@ -255,8 +255,19 @@ title('Phase')
 
 L1 = 60;
 L2 = 61;
-LB = 10;
-a=uint8(weber(L1,L2,LB));
+LB = 200;
+a = uint8(weber(L1,L2,LB));
+% b = uint8(weber(L1,L2,200));
+
 figure('Name','Weber experiment')
-imshow(a)
+% subplot(1, 2, 1)
+imagesc(a)
+% title('Dark background')
+% 
+% subplot(1, 2, 2)
+% imshow(b)
+% title('Light background')
+
+
+
 
