@@ -94,12 +94,6 @@ display('MSE for wool')
 display(compute_mse(wool, wool_t))
 
 %% Exercise 4 - Ordered matrix with centered points
-lena = imread('Images/lena-y.png');
-wool = imread('Images/wool.png');
-
-lena_quant = quantize(lena,37);
-wool_quant = quantize(wool,37);
-
 thresh_mat_C6 = [34 25 21 17 29 33;
                 30 13 9 5 12 24;
                 18 6 1 0 8 20;
@@ -113,81 +107,88 @@ thresh_mat_E6 = [30 22 16 21 33 35;
                     15 3 1 4 12 18;
                     27 8 6 10 25 29;
                     32 30 17 23 31 34];
-                
-lena_dith_ord_C6 = threshold_fct(lena_quant,thresh_mat_C6);
-wool_dith_ord_C6 = threshold_fct(wool_quant,thresh_mat_C6);
 
-lena_dith_ord_E6 = threshold_fct(lena_quant,thresh_mat_E6);
-wool_dith_ord_E6 = threshold_fct(wool_quant,thresh_mat_E6);
+lena = imread('Images/lena-y.png');
+lena_quant = quantize(lena, 37);
+lena_t_C6 = threshold_fct(lena_quant, thresh_mat_C6);
+lena_t_E6 = threshold_fct(lena_quant, thresh_mat_E6);
 
+wool = imread('Images/wool.png');
+wool_quant = quantize(wool, 37);
+wool_t_C6 = threshold_fct(wool_quant, thresh_mat_C6);
+wool_t_E6 = threshold_fct(wool_quant, thresh_mat_E6);
 
 figure('Name','Ordered threshold method with centered points - Lena');
 subplot(1,3,1)
 imshow(lena,[])
-title('Original image')
+title('Lena original')
 subplot(1,3,2)
-imshow(lena_dith_ord_C6,[])
-title('Image dithered with C6')
-
+imshow(lena_t_C6,[])
+title('Lena dithered with C6')
 subplot(1,3,3)
-imshow(lena_dith_ord_E6,[])
-title('Image dithered with E6')
-
+imshow(lena_t_E6,[])
+title('Lena dithered with E6')
 
 figure('Name','Ordered threshold method with centered points - Wool');
 subplot(1,3,1)
 imshow(wool,[])
-title('Original image')
+title('Wool original')
 subplot(1,3,2)
-imshow(wool_dith_ord_C6,[])
-title('Image dithered with C6')
-
+imshow(wool_t_C6,[])
+title('Wool dithered with C6')
 subplot(1,3,3)
-imshow(wool_dith_ord_E6,[])
-title('Image dithered with E6')
+imshow(wool_t_E6,[])
+title('Wool dithered with E6')
+
+display('MSE for lena C6')
+display(compute_mse(lena, lena_t_C6))
+display('MSE for lena E6')
+display(compute_mse(lena, lena_t_E6))
+
+display('MSE for wool C6')
+display(compute_mse(wool, wool_t_C6))
+display('MSE for wool E6')
+display(compute_mse(wool, wool_t_E6))
 
 %% Exercise 5 Diagonal ordered matrix with balanced centered points
-
-lena = imread('Images/lena-y.png');
-wool = imread('Images/wool.png');
-
-lena_quant = quantize(lena,32);
-wool_quant = quantize(wool,32);
-
 O_8_1 = [13 9 5 12;
            6 1 0 8;
            10 2 3 4;
            14 7 11 15];
-       
 O_8_2 = [18 22 26 19;
         25 30 31 23;
         21 29 28 27;
         17 24 20 16];
 thresh_mat_O8 = [O_8_1 O_8_2;
         O_8_2 O_8_1];
-    
- 
-lena_dith_ord_O8 = threshold_fct(lena_quant,thresh_mat_O8);
-wool_dith_ord_O8 = threshold_fct(wool_quant,thresh_mat_O8);
 
-figure('Name','Diagonal ordered matrix with balenced centered points')
+lena = imread('Images/lena-y.png');
+lena_quant = quantize(lena, 32);
+lena_t_O8 = threshold_fct(lena_quant, thresh_mat_O8);
+
+wool = imread('Images/wool.png');
+wool_quant = quantize(wool, 32);
+wool_t_O8 = threshold_fct(wool_quant, thresh_mat_O8);
+
+figure('Name','Diagonal ordered matrix with balanced centered points')
 subplot(2,2,1)
 imshow(lena,[])
-title('Original image')
+title('Lena original')
 subplot(2,2,2)
-imshow(lena_dith_ord_O8)
-title('Image dithered with O8')
+imshow(lena_t_O8)
+title('Lena dithered with O8')
 
 subplot(2,2,3)
 imshow(wool,[])
-title('Original image')
+title('Wool original')
 subplot(2,2,4)
-imshow(wool_dith_ord_O8)
-title('Image dithered with O8')
+imshow(wool_t_O8)
+title('Wool dithered with O8')
 
-
-
-
+display('MSE for lena O8')
+display(compute_mse(lena, lena_t_O8))
+display('MSE for wool O8')
+display(compute_mse(wool, wool_t_O8))
 
 %% Exercise 6 - Ordered matrix with dispersed dots
 D3 = [8 4 5;...
@@ -226,6 +227,11 @@ subplot(1, 2, 2)
 imshow(wool_t,[])
 title('Wool threshold')
 
+display('MSE for lena')
+display(compute_mse(lena, lena_t))
+display('MSE for wool')
+display(compute_mse(wool, wool_t))
+
 %% Exercise 7 - Error diffusion method
 lena = imread('Images/lena-y.png');
 lena_f = floyd_ed(lena);
@@ -235,7 +241,6 @@ figure('name', 'Error diffusion method - Lena')
 subplot(1, 2, 1)
 imshow(lena_f, [])
 title('Lena with floyd error diffusion')
-
 subplot(1, 2, 2)
 imshow(lena_s, [])
 title('Lena with stucki error diffusion')
@@ -248,7 +253,15 @@ figure('name', 'Error diffusion method - Wool')
 subplot(1, 2, 1)
 imshow(wool_f, [])
 title('Wool with floyd error diffusion')
-
 subplot(1, 2, 2)
 imshow(wool_s, [])
 title('Wool with stucki error diffusion')
+
+display('MSE for lena with floyd')
+display(compute_mse(lena, lena_f))
+display('MSE for lena with stucki')
+display(compute_mse(lena, lena_s))
+display('MSE for wool with floyd')
+display(compute_mse(wool, wool_f))
+display('MSE for wool with stucki')
+display(compute_mse(wool, wool_s))
