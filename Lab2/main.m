@@ -165,11 +165,11 @@ thresh_mat_O8 = [O_8_1 O_8_2;
         O_8_2 O_8_1];
 
 lena = imread('Images/lena-y.png');
-lena_quant = quantize(lena, 32);
+lena_quant = quantize(lena, 33);
 lena_t_O8 = threshold_fct(lena_quant, thresh_mat_O8);
 
 wool = imread('Images/wool.png');
-wool_quant = quantize(wool, 32);
+wool_quant = quantize(wool, 33);
 wool_t_O8 = threshold_fct(wool_quant, thresh_mat_O8);
 
 figure('Name','Diagonal ordered matrix with balanced centered points')
