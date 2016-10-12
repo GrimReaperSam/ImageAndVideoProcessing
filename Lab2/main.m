@@ -113,3 +113,30 @@ title('Wool original')
 subplot(1, 2, 2)
 imshow(wool_t,[])
 title('Wool threshold')
+
+%% Exercise 7 - Error diffusion method
+lena = imread('Images/lena-y.png');
+lena_f = floyd_ed(lena);
+lena_s = stucki_ed(lena);
+
+figure('name', 'Error diffusion method - Lena')
+subplot(1, 2, 1)
+imshow(lena_f, [])
+title('Lena with floyd error diffusion')
+
+subplot(1, 2, 2)
+imshow(lena_s, [])
+title('Lena with stucki error diffusion')
+
+wool = imread('Images/wool.png');
+wool_f = floyd_ed(wool);
+wool_s = stucki_ed(wool);
+
+figure('name', 'Error diffusion method - Wool')
+subplot(1, 2, 1)
+imshow(wool_f, [])
+title('Wool with floyd error diffusion')
+
+subplot(1, 2, 2)
+imshow(wool_s, [])
+title('Wool with stucki error diffusion')
