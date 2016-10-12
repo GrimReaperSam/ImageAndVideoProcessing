@@ -57,30 +57,41 @@ display('MSE for wool')
 display(compute_mse(wool, wool_t))
 
 %% Exercise 3 - Ordered threshold method
-
+thresh_mat = [34 29 17 21 30 35;...
+              28 14 9 16 20 31;...
+              13 8 4 5 15 19;...
+              12 3 0 1 10 18;...
+              27 7 2 6 23 24;...
+              33 26 11 22 25 32];
+            
 lena = imread('Images/lena-y.png');
-
-lena_quant = quantize(lena,37);
-
-
-thresh_mat = [34 29 17 21 30 35;
-                28 14 9 16 20 31;
-                13 8 4 5 15 19;
-                12 3 0 1 10 18;
-                27 7 2 6 23 24;
-                33 26 11 22 25 32];
-   
- [nx, ny] = size(lena);
+lena_quant = quantize(lena, 37);
+lena_t = threshold_fct(lena_quant, thresh_mat);
  
- img_dith_ord = threshold_fct(lena_quant, thresh_mat);
- 
-figure('Name','Ordered threshold method');
+figure('Name','Ordered threshold method - Lena');
 subplot(1,2,1)
-imshow(lena_quant,[])
-title('Original image')
+imshow(lena,[])
+title('Lena original')
 subplot(1,2,2)
-imshow(img_dith_ord,[])
-title('Image dithered with a ordered threshold method')
+imshow(lena_t,[])
+title('Lena threshold')
+
+wool = imread('Images/lena-y.png');
+wool_quant = quantize(wool, 37);
+wool_t = threshold_fct(wool_quant, thresh_mat);
+ 
+figure('Name','Ordered threshold method - Wool');
+subplot(1,2,1)
+imshow(wool,[])
+title('Wool original')
+subplot(1,2,2)
+imshow(wool_t,[])
+title('Wool threshold')
+
+display('MSE for lena')
+display(compute_mse(lena, lena_t))
+display('MSE for wool')
+display(compute_mse(wool, wool_t))
 
 %% Exercise 4 - Ordered matrix with centered points
 lena = imread('Images/lena-y.png');
