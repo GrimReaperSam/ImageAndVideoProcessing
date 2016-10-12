@@ -2,6 +2,8 @@ clc
 clear all
 close all
 
+% Lab 02 - Fayez LAHOUD, Christophe TRINH - 12th October 2016
+
 %% Exercise 1 - Fixed threshold method
 lena = imread('Images/lena-y.png');
 wool = imread('Images/wool.png');
@@ -76,7 +78,7 @@ subplot(1,2,2)
 imshow(lena_t,[])
 title('Lena threshold')
 
-wool = imread('Images/lena-y.png');
+wool = imread('Images/wool.png');
 wool_quant = quantize(wool, 37);
 wool_t = threshold_fct(wool_quant, thresh_mat);
  
