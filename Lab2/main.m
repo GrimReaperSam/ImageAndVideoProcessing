@@ -24,6 +24,11 @@ subplot(2, 2, 4)
 imshow(wool_t)
 title('Wool threshold')
 
+display('MSE for lena')
+display(compute_mse(lena, lena_t))
+display('MSE for wool')
+display(compute_mse(wool, wool_t))
+
 %% Exercise 2 - Random threshold method
 lena = imread('Images/lena-y.png');
 wool = imread('Images/wool.png');
@@ -45,6 +50,11 @@ title('Wool original')
 subplot(2, 2, 4)
 imshow(wool_t)
 title('Wool threshold')
+
+display('MSE for lena')
+display(compute_mse(lena, lena_t))
+display('MSE for wool')
+display(compute_mse(wool, wool_t))
 
 %% Exercise 3 - Ordered threshold method
 
