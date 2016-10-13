@@ -7,7 +7,7 @@ function [ results ] = threshold_fct( img, thresh_mat )
     results= zeros(nx,ny);
     for indx=1:nx
         for indy=1:ny
-            if img(indx,indy) > thresh_paved(indx,indy)
+            if img(indx,indy) >= thresh_paved(indx,indy)
                 results(indx,indy) = 1;
             end
         end
