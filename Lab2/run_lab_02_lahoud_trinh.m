@@ -26,9 +26,9 @@ subplot(2, 2, 4)
 imshow(wool_t)
 title('Wool threshold')
 
-display('MSE for lena')
+display('MSE for lena - fixed')
 display(compute_mse(lena, lena_t))
-display('MSE for wool')
+display('MSE for wool - fixed')
 display(compute_mse(wool, wool_t))
 
 %% Exercise 2 - Random threshold method
@@ -53,9 +53,9 @@ subplot(2, 2, 4)
 imshow(wool_t)
 title('Wool threshold')
 
-display('MSE for lena')
+display('MSE for lena - random')
 display(compute_mse(lena, lena_t))
-display('MSE for wool')
+display('MSE for wool - random')
 display(compute_mse(wool, wool_t))
 
 %% Exercise 3 - Ordered threshold method
@@ -90,9 +90,9 @@ subplot(1,2,2)
 imshow(wool_t,[])
 title('Wool threshold')
 
-display('MSE for lena')
+display('MSE for lena - ordered')
 display(compute_mse(lena, lena_t))
-display('MSE for wool')
+display('MSE for wool - ordered')
 display(compute_mse(wool, wool_t))
 
 %% Exercise 4 - Ordered matrix with centered points
@@ -142,14 +142,14 @@ subplot(1,3,3)
 imshow(wool_t_E6,[])
 title('Wool dithered with E6')
 
-display('MSE for lena C6')
+display('MSE for lena C6 - ordered centered')
 display(compute_mse(lena, lena_t_C6))
-display('MSE for lena E6')
+display('MSE for lena E6 - ordered centered')
 display(compute_mse(lena, lena_t_E6))
 
-display('MSE for wool C6')
+display('MSE for wool C6 - ordered centered')
 display(compute_mse(wool, wool_t_C6))
-display('MSE for wool E6')
+display('MSE for wool E6 - ordered centered')
 display(compute_mse(wool, wool_t_E6))
 
 %% Exercise 5 Diagonal ordered matrix with balanced centered points
@@ -187,9 +187,9 @@ subplot(2,2,4)
 imshow(wool_t_O8)
 title('Wool dithered with O8')
 
-display('MSE for lena O8')
+display('MSE for lena O8 - diagonal')
 display(compute_mse(lena, lena_t_O8))
-display('MSE for wool O8')
+display('MSE for wool O8 - diagonal')
 display(compute_mse(wool, wool_t_O8))
 
 %% Exercise 6 - Ordered matrix with dispersed dots
@@ -229,9 +229,9 @@ subplot(1, 2, 2)
 imshow(wool_t,[])
 title('Wool threshold')
 
-display('MSE for lena')
+display('MSE for lena - dispersed')
 display(compute_mse(lena, lena_t))
-display('MSE for wool')
+display('MSE for wool - dispersed')
 display(compute_mse(wool, wool_t))
 
 %% Exercise 7 - Error diffusion method
