@@ -57,7 +57,24 @@ title('Road')
 
 
 %% Exercise 4 - Frei-Chen method
+lena = imread('Images/lena.png');
+rice = imread('Images/rice.png');
+road = imread('Images/road.png');
 
+lena_grad = frei_chen_edge(lena, 0.9);
+rice_grad = frei_chen_edge(rice, 0.9);
+road_grad = frei_chen_edge(road, 0.9);
 
+figure('name', 'Laplace operator')
+subplot(1, 3, 1)
+imshow(lena_grad)
+title('Lena')
 
+subplot(1, 3, 2)
+imshow(rice_grad)
+title('Rice')
+
+subplot(1, 3, 3)
+imshow(road_grad)
+title('Road')
 
