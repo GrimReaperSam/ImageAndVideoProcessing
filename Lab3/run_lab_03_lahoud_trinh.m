@@ -20,17 +20,22 @@ rice = imread('Images/rice.png');
 road = imread('Images/road.png');
 
 
-lena_compassed = compass_operator(lena);
-rice_compassed = compass_operator(rice);
-road_compassed = compass_operator(road);
-figure(1);
-subplot(1,3,1)
-imshow(lena_compassed)
-subplot(1,3,2)
-imshow(rice_compassed)
-subplot(1,3,3)
-imshow(road_compassed)
+lena_compassed = compass_operator(lena, 0.7);
+rice_compassed = compass_operator(rice, 0.7);
+road_compassed = compass_operator(road, 0.7);
 
+figure('name', 'Compass Operator');
+subplot(1,3,1)
+imshow(lena_compassed, [])
+title('Lena')
+
+subplot(1,3,2)
+imshow(rice_compassed, [])
+title('Rice')
+
+subplot(1,3,3)
+imshow(road_compassed, [])
+title('Road')
 
 
 %% Exercise 3 - Laplace operator
@@ -67,14 +72,14 @@ road_grad = frei_chen_edge(road, 0.9);
 
 figure('name', 'Frei-Chen method')
 subplot(1, 3, 1)
-imshow(lena_grad)
+imshow(lena_grad, [])
 title('Lena')
 
 subplot(1, 3, 2)
-imshow(rice_grad)
+imshow(rice_grad, [])
 title('Rice')
 
 subplot(1, 3, 3)
-imshow(road_grad)
+imshow(road_grad, [])
 title('Road')
 

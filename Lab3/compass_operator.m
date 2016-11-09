@@ -1,4 +1,4 @@
-function [ results ] = compass_operator(img)
+function grad = compass_operator(img, threshold)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -16,7 +16,7 @@ function [ results ] = compass_operator(img)
             img_compassed = cat(3, conv2(image,kangle,'same'),img_compassed);
         end
     
-    results = max(img_compassed,[],3);
-    
+    results = max(abs(img_compassed),[],3);
+    grad = uint8(results > threshold);
 end
 

@@ -24,6 +24,6 @@ function grad = frei_chen_edge(image, threshold)
     s = sum(yy2, 3);
     
     angle = sqrt(m ./ s);
-    grad = angle > threshold;
+    grad = uint8(angle > threshold);
 end
 
