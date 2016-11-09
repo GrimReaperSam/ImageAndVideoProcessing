@@ -65,7 +65,7 @@ lena_grad = frei_chen_edge(lena, 0.9);
 rice_grad = frei_chen_edge(rice, 0.9);
 road_grad = frei_chen_edge(road, 0.9);
 
-figure('name', 'Laplace operator')
+figure('name', 'Frei-Chen method')
 subplot(1, 3, 1)
 imshow(lena_grad)
 title('Lena')
