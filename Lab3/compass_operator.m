@@ -15,6 +15,7 @@ function grad = compass_operator(img, threshold)
         else
             img_compassed = cat(3, conv2(image,kangle,'same'),img_compassed);
         end
+    end
     
     results = max(abs(img_compassed),[],3);
     grad = uint8(results > threshold);

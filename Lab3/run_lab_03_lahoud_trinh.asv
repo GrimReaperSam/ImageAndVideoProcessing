@@ -99,9 +99,11 @@ title('std = 5')
 subplot(1,3,2)
 imshow(lena_noisy_11,[])
 title('std = 11')
-subplot(1,3,3)
+subplot(1,3,1)
 imshow(lena_noisy_5,[])
 title('std = 5')
+
+
 
     
 lena_noisy_5_sobel_l2   = template_edge(lena_noisy_5, 'Sobel', 0.2, 'L2');
