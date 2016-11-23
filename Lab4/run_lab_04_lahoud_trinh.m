@@ -4,7 +4,7 @@ close all
 
 % Lab 04 - Fayez LAHOUD, Christophe TRINH - 23th November 2016
 
-%%Load the data
+%% Loading the data
 load data/Bikes.mat
 load data/Fountain.mat
 load data/Friends.mat
@@ -45,8 +45,7 @@ for slope=-10:5:10
     
 end
 
-%% Depth of Field Measurement
-
+%% Depth of Field of LF Images
 
 index=1;
 slope = 2;
@@ -59,5 +58,22 @@ for aperture=1:4:15
     index = index + 1; 
 end
 
+
+%% Depth of Field Measurement
+
+
+slope = -4;
+blur_vect = [];
+for aperture=3:2:13
+    img = dof_refocus(Friends_4DLF,slope,aperture);
+    YCRCB = rgb2ycbcr(img);
+    [blur_ver,blur_hor] = NR_blur(YCRCB(:,:,1));
+    new_blur = (blur_ver+blur_hor)/2;
+    blur_vect = [blur_vect new_blur];
+    display(strcat('Friends - slope = -4, Aperture =',num2str(aperture),' blurindex = ', num2str(new_blur)))
+end
+
+figure('Name','Plot')
+plot(3:2:13,blur_vect)
 
 
