@@ -94,6 +94,8 @@ end
 
 
 %---------------- FRIENDS ----------------
+display('Processing the FRIENDS image')
+
 slope = -4;
 blur_vect = [];
 for aperture=3:2:13
@@ -111,8 +113,16 @@ xlabel('Aperture size')
 ylabel('blur index')
 xlabel('Aperture size')
 
+%measure of stats for the linear regression
+fitlm(3:2:13,blur_vect)
+
+
 
 %---------------- BIKES ----------------
+
+display('----------------------------')
+display('Processing the Bikes image')
+
 slope = 5;
 blur_vect = [];
 for aperture=3:2:13
@@ -131,7 +141,13 @@ ylabel('blur index')
 xlabel('Aperture size')
 
 
+fitlm(3:2:13,blur_vect)
+
+
 %---------------- FOUNTAIN ----------------
+
+display('----------------------------')
+display('Processing the Fountain image')
 
 slope = 5;
 blur_vect = [];
@@ -150,5 +166,7 @@ xlabel('Aperture size')
 ylabel('blur index')
 xlabel('Aperture size')
 
+
+fitlm(3:2:13,blur_vect)
 
 
