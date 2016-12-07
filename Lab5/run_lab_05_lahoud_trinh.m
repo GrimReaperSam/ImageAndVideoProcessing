@@ -1,3 +1,5 @@
+% Lab 05 - Fayez LAHOUD, Christophe TRINH - 23th November 2016
+
 clc
 clear all
 close all
@@ -14,14 +16,13 @@ codecs = {'JPEG', 'HEVC', 'JPEG 2000 (PSNR)', 'JPEG 2000 (visual)', 'Daala',...
     'JPEG XR (444)', 'WebP', 'JPEG (PSNR)', 'JPEG (visual)', 'JPEG XR (420)'};
 contents = {'bike', 'cafe', 'honolulu_zoo', 'p08', 'p26', 'woman'};
 bitrates = {'R1', 'R2', 'R3', 'R4'};
-% Lab 05 - Fayez LAHOUD, Christophe TRINH - 23th November 2016
 
-
-
-%% Plotting MOS values with CI for each content
-[mos, ci] = MOS(raw_scores);
+metrics_names = fieldnames(metrics);
 content_types = unique(content_lut);
 codec_types = unique(codec_lut);
+
+%% Plotting MOS values with CI vs bitrates for each content
+[mos, ci] = MOS(raw_scores);
 for i=1:length(content_types)
     content = content_types(i);
     indices = find(content_lut == content);
@@ -41,31 +42,24 @@ for i=1:length(content_types)
     legend('boxoff')
 end
 
-
 %% Plotting objectives metrics
-
-name_metrics = fieldnames(metrics);
-content_types = unique(content_lut);
-codec_types = unique(codec_lut);
-
-
 for i=1:length(content_types)
     content = content_types(i);
     indices = find(content_lut == content);
     figure('Name', contents{i})
-    for j=1:length(name_metrics)
+    for j=1:length(metrics_names)
         for index_codec = 1:length(codec_types)
             codec = codec_types(index_codec);
             codec_indices = find(codec_lut == codec);
             bit_indices = intersect(indices, codec_indices);
-            metrics_values = getfield(metrics,name_metrics{j});
+            metrics_values = getfield(metrics,metrics_names{j});
             subplot(3,3,j)
             plot(bitrate_values(bit_indices),metrics_values(bit_indices),'DisplayName',codecs{index_codec});
             hold on
         end
         hold off
         xlabel('Bitrates')
-        ylabel(strrep(name_metrics{j},'_',''))
+        ylabel(strrep(metrics_names{j},'_',''))
     end
     legend('show')
     legend('location', 'bestoutside')
@@ -73,3 +67,44 @@ for i=1:length(content_types)
 end
 
 
+%% Plotting MOS values with CI vs metrics for each metric
+[mos, ci] = MOS(raw_scores);
+for m=1:length(metrics_names)
+    current_metric = getfield(metrics, metrics_names{m});
+    figure('Name', metrics_names{m})
+    for i=1:length(content_types)
+        content = content_types(i);
+        indices = find(content_lut == content);
+        errorbar(current_metric(indices), mos(indices), ci(indices), 'o', 'DisplayName', contents{i})
+        hold on
+    end
+    
+    [sorted, sort_indices] = sort(current_metric);
+    sorted_mos = mos(sort_indices);
+    % Linear fit
+    p = polyfit(current_metric, sorted_mos, 1);
+    y_fit = polyval(p, sorted);
+    plot(sorted, y_fit, 'k--', 'DisplayName', 'Linear Fit')
+    hold on
+    
+    pearson = corr(sorted_mos, y_fit);
+    spearman = corr(sorted_mos, y_fit, 'type', 'Spearman');    
+    rmse = sqrt(sum((sorted_mos(:) - y_fit(:)).^2) / length(sorted_mos));
+    
+    % Cubic fit
+    p = polyfit(current_metric, sorted_mos, 3);
+    y_fit = polyval(p, sorted);
+    plot(sorted, y_fit, 'k-.', 'DisplayName', 'Cubic fit')
+    hold on
+    
+    pearson = corr(sorted_mos, y_fit);
+    spearman = corr(sorted_mos, y_fit, 'type', 'Spearman');    
+    rmse = sqrt(sum((sorted_mos(:) - y_fit(:)).^2) / length(sorted_mos));
+    
+    xlabel(strrep(metrics_names{m}, '_', ' '))
+    ylabel('MOS')
+    legend('show')
+    legend('location', 'southeast')
+    legend('boxoff')
+    hold off
+end
