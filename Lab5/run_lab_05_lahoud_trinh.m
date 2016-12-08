@@ -40,9 +40,7 @@ for i=1:length(content_types)
     ylabel('MOS')
     title(contents(i))
 end
-legend('show')
-legend('Location', 'bestoutside')
-legend('boxoff')
+legend(gca, 'show');
 
 %% Plotting objectives metrics
 for i=1:length(content_types)
@@ -63,9 +61,7 @@ for i=1:length(content_types)
         xlabel('Bitrates')
         ylabel(strrep(metrics_names{j},'_',''))
     end
-    legend('show')
-    legend('location', 'bestoutside')
-    legend('boxoff')
+    legend(gca, 'show');
 end
 
 
@@ -110,7 +106,4 @@ for m=1:length(metrics_names)
     ylabel('MOS')
     hold off
 end
-legend('show')
-legend('location', 'bestoutside')
-legend('boxoff')
-
+legend(gca, 'show');
