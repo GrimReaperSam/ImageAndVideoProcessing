@@ -23,7 +23,7 @@ codec_types = unique(codec_lut);
 
 %% Plotting MOS values with CI vs bitrates for each content
 [mos, ci] = MOS(raw_scores);
-figure('Name', contents{i})
+figure('Name', 'MOS vs bitrate per content')
 for i=1:length(content_types)
     content = content_types(i);
     indices = find(content_lut == content);
@@ -41,7 +41,7 @@ for i=1:length(content_types)
     title(contents(i))
 end
 legend('show')
-legend('Location', 'southeast')
+legend('Location', 'bestoutside')
 legend('boxoff')
 
 %% Plotting objectives metrics
@@ -71,9 +71,12 @@ end
 
 %% Plotting MOS values with CI vs metrics for each metric
 [mos, ci] = MOS(raw_scores);
+    figure('Name', 'MOS vs Metrics comparison')
 for m=1:length(metrics_names)
+    subplot(3, 3, m)
+    title(metrics_names{m})
     current_metric = getfield(metrics, metrics_names{m});
-    figure('Name', metrics_names{m})
+
     for i=1:length(content_types)
         content = content_types(i);
         indices = find(content_lut == content);
@@ -105,8 +108,9 @@ for m=1:length(metrics_names)
     
     xlabel(strrep(metrics_names{m}, '_', ' '))
     ylabel('MOS')
-    legend('show')
-    legend('location', 'southeast')
-    legend('boxoff')
     hold off
 end
+legend('show')
+legend('location', 'bestoutside')
+legend('boxoff')
+
