@@ -23,10 +23,11 @@ codec_types = unique(codec_lut);
 
 %% Plotting MOS values with CI vs bitrates for each content
 [mos, ci] = MOS(raw_scores);
+figure('Name', contents{i})
 for i=1:length(content_types)
     content = content_types(i);
     indices = find(content_lut == content);
-    figure('Name', contents{i})
+    subplot(2, 3, i)
     for j=1:length(codec_types)
        codec = codec_types(j);
        codec_indices = find(codec_lut == codec);
@@ -37,10 +38,11 @@ for i=1:length(content_types)
     hold off
     xlabel('Bitrates')
     ylabel('MOS')
-    legend('show')
-    legend('location', 'southeast')
-    legend('boxoff')
+    title(contents(i))
 end
+legend('show')
+legend('Location', 'southeast')
+legend('boxoff')
 
 %% Plotting objectives metrics
 for i=1:length(content_types)
