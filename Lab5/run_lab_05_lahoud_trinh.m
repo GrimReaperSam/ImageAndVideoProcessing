@@ -9,7 +9,7 @@ load('data/codec_lut.mat')
 load('data/content_lut.mat')
 load('data/bitrate_lut.mat')
 load('data/bitrate_values.mat')
-load('data/raw_scores.mat')
+load('data/real_raw_scores.mat')
 metrics = load('data/metrics.mat');
 
 codecs = {'JPEG', 'HEVC', 'JPEG 2000 (PSNR)', 'JPEG 2000 (visual)', 'Daala',...
@@ -22,7 +22,7 @@ content_types = unique(content_lut);
 codec_types = unique(codec_lut);
 
 %% Plotting MOS values with CI vs bitrates for each content
-[mos, ci] = MOS(raw_scores);
+[mos, ci] = MOS(real_raw_scores);
 figure('Name', 'MOS vs bitrate per content')
 for i=1:length(content_types)
     content = content_types(i);
@@ -60,14 +60,15 @@ for i=1:length(content_types)
         hold off
         xlabel('Bitrates')
         ylabel(strrep(metrics_names{j},'_',''))
+        set(gca, 'YAxisLocation', 'right');
     end
     legend(gca, 'show');
 end
 
 
 %% Plotting MOS values with CI vs metrics for each metric
-[mos, ci] = MOS(raw_scores);
-    figure('Name', 'MOS vs Metrics comparison')
+[mos, ci] = MOS(real_raw_scores);
+figure('Name', 'MOS vs Metrics comparison')
 for m=1:length(metrics_names)
     subplot(3, 3, m)
     title(metrics_names{m})
@@ -82,8 +83,9 @@ for m=1:length(metrics_names)
     
     [sorted, sort_indices] = sort(current_metric);
     sorted_mos = mos(sort_indices);
+    
     % Linear fit
-    p = polyfit(current_metric, sorted_mos, 1);
+    p = polyfit(sorted, sorted_mos, 1);
     y_fit = polyval(p, sorted);
     plot(sorted, y_fit, 'k--', 'DisplayName', 'Linear Fit')
     hold on
@@ -93,7 +95,7 @@ for m=1:length(metrics_names)
     rmse = sqrt(sum((sorted_mos(:) - y_fit(:)).^2) / length(sorted_mos));
     
     % Cubic fit
-    p = polyfit(current_metric, sorted_mos, 3);
+    p = polyfit(sorted, sorted_mos, 3);
     y_fit = polyval(p, sorted);
     plot(sorted, y_fit, 'k-.', 'DisplayName', 'Cubic fit')
     hold on
